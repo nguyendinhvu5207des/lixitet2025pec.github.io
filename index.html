@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Bốc Lì Xì Tết 2025</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #ff4d4d;
+            background-image: url('https://via.placeholder.com/1920x1080.png?text=Pháo+hoa+Chúc+Mừng+Năm+Mới'),
+                              url('https://via.placeholder.com/1920x1080.png?text=Hoa+Mai+Hoa+Đào'),
+                              linear-gradient(to bottom, #ff4d4d, #990000);
+            background-size: cover, cover, cover;
+            background-position: center, center, center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        h1 {
+            color: #ffeb3b;
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .envelopes {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .envelope {
+            width: 100px;
+            height: 150px;
+            background-color: #d32f2f;
+            border-radius: 10px;
+            color: #ffeb3b;
+            font-size: 18px;
+            text-align: center;
+            line-height: 150px;
+            cursor: pointer;
+            position: relative;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            border: 2px solid #fbc02d;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .envelope:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .message {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.9);
+            border: 2px solid #d84315;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            color: #d84315;
+            z-index: 1000;
+        }
+
+        .message button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #d84315;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .message button:hover {
+            background-color: #b71c1c;
+        }
+
+        .fireworks {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes sparkle {
+            0% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(2);
+            }
+        }
+
+        .sparkle {
+            position: absolute;
+            background-color: yellow;
+            border-radius: 50%;
+            animation: sparkle 1s linear infinite;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bốc Lì Xì May Mắn Tết 2025</h1>
+    <div class="envelopes">
+        <!-- Nội dung lì xì được tự động sinh -->
+        <script>
+            const envelopeContainer = document.querySelector('.envelopes');
+            const totalEnvelopes = 70;
+            const messages = [
+                "Chúc mừng năm mới! Tấn tài tấn lộc!",
+                "Vạn sự như ý! An khang thịnh vượng!",
+                "Phát tài phát lộc! Cả năm sung túc!",
+                "Hạnh phúc tràn đầy! Sức khỏe dồi dào!",
+                "Chúc gia đình bạn năm mới nhiều niềm vui!"
+            ];
+
+            const specialMessages = Array.from({ length: 30 }, () => {
+                const amount = Math.floor(Math.random() * 50) + 1;
+                return `${amount * 1000}đ - Chụp lại bức ảnh này và liên hệ với mình nha!`;
+            });
+
+            const allMessages = Array.from({ length: totalEnvelopes }, (_, i) =>
+                i < specialMessages.length ? specialMessages[i] : messages[Math.floor(Math.random() * messages.length)]
+            );
+
+            // Shuffle the envelopes
+            allMessages.sort(() => Math.random() - 0.5);
+
+            allMessages.forEach((content, index) => {
+                const envelope = document.createElement('div');
+                envelope.className = 'envelope';
+                envelope.textContent = `Lì Xì ${index + 1}`;
+                envelope.onclick = () => {
+                    openEnvelope(content);
+                };
+                envelopeContainer.appendChild(envelope);
+            });
+
+            function openEnvelope(message) {
+                const messageContent = document.getElementById('messageContent');
+                messageContent.textContent = message;
+                const messageBox = document.getElementById('message');
+                messageBox.style.display = 'block';
+            }
+
+            function closeMessage() {
+                const messageBox = document.getElementById('message');
+                messageBox.style.display = 'none';
+            }
+        </script>
+    </div>
+
+    <div class="message" id="message">
+        <p id="messageContent"></p>
+        <button onclick="closeMessage()">Đóng</button>
+    </div>
+
+    <div class="fireworks" id="fireworks"></div>
+
+    <script>
+        // Tạo hiệu ứng pháo hoa
+        function createFirework(x, y) {
+            const container = document.getElementById('fireworks');
+            for (let i = 0; i < 20; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = `${x}px`;
+                sparkle.style.top = `${y}px`;
+                sparkle.style.width = `${Math.random() * 10 + 5}px`;
+                sparkle.style.height = sparkle.style.width;
+                sparkle.style.animationDelay = `${Math.random() * 0.5}s`;
+                sparkle.style.animationDuration = `${Math.random() * 1 + 0.5}s`;
+                container.appendChild(sparkle);
+                setTimeout(() => container.removeChild(sparkle), 1500);
+            }
+        }
+
+        document.body.addEventListener('click', (e) => {
+            createFirework(e.clientX, e.clientY);
+        });
+    </script>
+</body>
+  </html>
