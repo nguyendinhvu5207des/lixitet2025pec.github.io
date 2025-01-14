@@ -26,10 +26,11 @@
 
         h1 {
             color: #ffeb3b;
-            font-size: 48px;
+            font-size: 3em;
             margin-bottom: 20px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
             animation: pulse 1.5s infinite;
+            text-align: center;
         }
 
         @keyframes pulse {
@@ -42,21 +43,48 @@
         }
 
         .envelopes {
-            display: grid;
-            grid-template-columns: repeat(10, 1fr);
-            gap: 15px;
-            justify-content: center;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+        gap: 10px;
+        justify-content: center;
+        padding: 10px;
+        width: 90%;
+        max-width: 1200px;
+        max-height: 90vh; /* Giới hạn chiều cao */
+        overflow-y: auto; /* Thêm thanh cuộn dọc nếu cần */
+        background-color: rgba(255, 255, 255, 0.1); /* Màu nền nhẹ */
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 10px;
+        }
+
+        /* Thanh cuộn tuỳ chỉnh */
+        .envelopes::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .envelopes::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .envelopes::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+        }
+
+        .envelopes::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.5);
         }
 
         .envelope {
-            width: 100px;
-            height: 150px;
+            width: 100%;
+            aspect-ratio: 2 / 3;
             background-color: #d32f2f;
             border-radius: 10px;
             color: #ffeb3b;
-            font-size: 18px;
+            font-size: 1em;
             text-align: center;
-            line-height: 150px;
+            line-height: 2.5;
             cursor: pointer;
             position: relative;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
@@ -93,7 +121,7 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 1em;
         }
 
         .message button:hover {
@@ -110,32 +138,56 @@
             z-index: 1;
         }
 
-        @keyframes sparkle {
-            0% {
-                opacity: 1;
-                transform: scale(1);
+        @media (max-width: 1024px) {
+            h1 {
+                font-size: 2.5em;
             }
-            100% {
-                opacity: 0;
-                transform: scale(2);
+
+            .envelope {
+                font-size: 0.9em;
+            }
+
+            .message button {
+                font-size: 0.9em;
             }
         }
 
-        .sparkle {
-            position: absolute;
-            background-color: yellow;
-            border-radius: 50%;
-            animation: sparkle 1s linear infinite;
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .envelopes {
+                gap: 8px;
+            }
+
+            .envelope {
+                font-size: 0.8em;
+            }
+
+            .message button {
+                font-size: 0.8em;
+                padding: 8px 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5em;
+            }
+
+            .envelope {
+                font-size: 0.7em;
+            }
         }
     </style>
 </head>
 <body>
     <h1>Bốc Lì Xì May Mắn Tết 2025</h1>
     <div class="envelopes">
-        <!-- Nội dung lì xì được tự động sinh -->
         <script>
             const envelopeContainer = document.querySelector('.envelopes');
-            const totalEnvelopes = 50;
+            const totalEnvelopes = 70;
             const messages = [
                 "Chúc mừng năm mới! Tấn tài tấn lộc!",
                 "Vạn sự như ý! An khang thịnh vượng!",
@@ -145,7 +197,7 @@
             ];
 
             const specialMessages = Array.from({ length: 30 }, () => {
-                const amount = Math.floor(Math.random() * 50) + 1;
+                const amount = Math.floor(Math.random() * 70) + 1;
                 return `${amount * 1000}đ - Chụp lại bức ảnh này và liên hệ với mình nha!`;
             });
 
@@ -153,8 +205,10 @@
                 i < specialMessages.length ? specialMessages[i] : messages[Math.floor(Math.random() * messages.length)]
             );
 
-            // Shuffle the envelopes
             allMessages.sort(() => Math.random() - 0.5);
+
+            // Kiểm tra trạng thái đã bấm chưa từ localStorage
+            const userHasClicked = localStorage.getItem('hasClicked');
 
             allMessages.forEach((content, index) => {
                 const envelope = document.createElement('div');
@@ -188,7 +242,6 @@
     <div class="fireworks" id="fireworks"></div>
 
     <script>
-        // Tạo hiệu ứng pháo hoa
         function createFirework(x, y) {
             const container = document.getElementById('fireworks');
             for (let i = 0; i < 50; i++) {
@@ -210,4 +263,4 @@
         });
     </script>
 </body>
-  </html>
+</html>
